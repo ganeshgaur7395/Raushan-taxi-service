@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raushan Taxi Service - Reliable Cab Booking in Gurugram</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Lighter gray background, similar to sample */
+        }
+        /* Custom scroll-to-top button styling */
+        #scrollToTopBtn {
+            display: none; /* Hidden by default */
+            position: fixed; /* Fixed position */
+            bottom: 20px; /* Place at the bottom */
+            right: 20px; /* Place at the right */
+            z-index: 99; /* Ensure it's above other content */
+            background-color: #007bff; /* Blue, similar to sample's primary color */
+            color: white; /* White text */
+            padding: 15px; /* Padding */
+            border-radius: 50%; /* Rounded shape */
+            border: none; /* No border */
+            cursor: pointer; /* Pointer on hover */
+            font-size: 18px; /* Icon size */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            transition: background-color 0.3s ease; /* Smooth transition */
+        }
+        #scrollToTopBtn:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        /* Custom styling for the booking form */
+        .booking-form-card {
+            background-color: white;
+            padding: 2.5rem; /* Increased padding */
+            border-radius: 0.75rem; /* Rounded corners */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+            max-width: 900px; /* Max width for the form */
+            margin: 0 auto; /* Center the form */
+        }
+        .form-input {
+            border: 1px solid #d1d5db; /* Light gray border */
+            padding: 0.75rem 1rem; /* Padding */
+            border-radius: 0.375rem; /* Slightly rounded corners */
+            width: 100%;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #007bff; /* Blue focus border */
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Blue focus shadow */
+        }
+        .btn-primary {
+            background-color: #ffc107; /* Yellow/orange accent */
+            color: #333; /* Dark text for contrast */
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn-primary:hover {
+            background-color: #e0a800; /* Darker yellow/orange on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-md py-4 sticky top-0 z-50">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <!-- Business name as text (logo removed) -->
+            <a href="#home" class="text-2xl font-bold text-blue-700 rounded-md p-2 hover:text-blue-800 transition duration-300">Raushan Taxi Service</a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="#home" class="text-lg font-medium text-gray-700 hover:text-blue-600 transition duration-300 rounded-md p-2">Home</a>
+                <a href="#services" class="text-lg font-medium text-gray-700 hover:text-blue-600 transition duration-300 rounded-md p-2">Services</a>
+                <a href="#fleet" class="text-lg font-medium text-gray-700 hover:text-blue-600 transition duration-300 rounded-md p-2">Our Fleet</a>
+                <a href="#testimonials" class="text-lg font-medium text-gray-700 hover:text-blue-600 transition duration-300 rounded-md p-2">Testimonials</a>
+                <a href="#contact" class="text-lg font-medium text-gray-700 hover:text-blue-600 transition duration-300 rounded-md p-2">Contact</a>
+            </nav>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none rounded-md p-2">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-6">
+            <button id="close-mobile-menu" class="absolute top-4 right-4 text-gray-700 focus:outline-none rounded-md p-2">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <a href="#home" class="text-3xl font-medium text-gray-700 hover:text-blue-600 transition duration-300 rounded-md p-3" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Home</a>
+            <a href="#services" class="text-3xl font-medium text-gray-700 hover:text-blue-600 transition duration-300 rounded-md p-3" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Services</a>
+            <a href="#fleet" class="text-3xl font-medium text-gray-700 hover:text-blue-600 transition duration-300 rounded-md p-3" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Our Fleet</a>
+            <a href="#testimonials" class="text-3xl font-medium text-gray-700 hover:text-blue-600 transition duration-300 rounded-md p-3" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Testimonials</a>
+            <a href="#contact" class="text-3xl font-medium text-gray-700 hover:text-blue-600 transition duration-300 rounded-md p-3" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section with Booking Form -->
+    <section id="home" class="relative bg-gradient-to-r from-blue-700 to-blue-900 text-white py-20 md:py-32 flex items-center justify-center min-h-screen">
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 rounded-md p-2">Book Your Ride with Raushan Taxi Service</h1>
+            <p class="text-lg md:text-2xl mb-12 max-w-3xl mx-auto rounded-md p-2">Experience professional, safe, and comfortable cab booking services in Gurugram.</p>
+
+            <!-- Booking Form -->
+            <div class="booking-form-card">
+                <form class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="col-span-1 md:col-span-2 lg:col-span-1">
+                        <label for="trip-type" class="block text-gray-700 text-sm font-bold mb-2 text-left">Trip Type</label>
+                        <select id="trip-type" class="form-input">
+                            <option>One Way</option>
+                            <option>Round Trip</option>
+                            <option>Local Rental</option>
+                            <option>Airport Transfer</option>
+                        </select>
+                    </div>
+                    <div class="col-span-1 md:col-span-1 lg:col-span-1">
+                        <label for="pickup-location" class="block text-gray-700 text-sm font-bold mb-2 text-left">Pickup Location</label>
+                        <input type="text" id="pickup-location" class="form-input" placeholder="Enter Pickup Location">
+                    </div>
+                    <div class="col-span-1 md:col-span-1 lg:col-span-1">
+                        <label for="drop-location" class="block text-gray-700 text-sm font-bold mb-2 text-left">Drop Location</label>
+                        <input type="text" id="drop-location" class="form-input" placeholder="Enter Drop Location">
+                    </div>
+                    <div class="col-span-1 md:col-span-1 lg:col-span-1">
+                        <label for="pickup-date" class="block text-gray-700 text-sm font-bold mb-2 text-left">Pickup Date</label>
+                        <input type="date" id="pickup-date" class="form-input">
+                    </div>
+                    <div class="col-span-1 md:col-span-1 lg:col-span-1">
+                        <label for="pickup-time" class="block text-gray-700 text-sm font-bold mb-2 text-left">Pickup Time</label>
+                        <input type="time" id="pickup-time" class="form-input">
+                    </div>
+                    <div class="col-span-1 md:col-span-2 lg:col-span-2 flex items-end">
+                        <button type="submit" class="btn-primary w-full">Search Cabs</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section (Combined and Simplified) -->
+    <section id="about" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold text-blue-700 mb-12 rounded-md p-2">About Raushan Taxi Service</h2>
+            <div class="max-w-4xl mx-auto">
+                <p class="text-lg md:text-xl text-gray-700 mb-6 leading-relaxed">
+                    Led by **Raushan Kumar**, Raushan Taxi Service is dedicated to providing top-notch cab booking solutions in Gurugram. We pride ourselves on our fleet of well-maintained vehicles and a team of experienced, professional drivers who are committed to your satisfaction. Your safety and comfort are our highest priorities. Choose Raushan Taxi Service for a reliable and pleasant travel experience every time.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+                    <div class="p-4 flex flex-col items-center text-center">
+                        <div class="text-yellow-500 text-4xl mb-4"><i class="fas fa-shield-alt"></i></div>
+                        <h3 class="text-xl font-semibold mb-2 text-gray-900">Safety First</h3>
+                        <p class="text-gray-600">Our vehicles are regularly inspected, and drivers are thoroughly vetted.</p>
+                    </div>
+                    <div class="p-4 flex flex-col items-center text-center">
+                        <div class="text-yellow-500 text-4xl mb-4"><i class="fas fa-clock"></i></div>
+                        <h3 class="text-xl font-semibold mb-2 text-gray-900">Punctual Service</h3>
+                        <p class="text-gray-600">We value your time. Our drivers are committed to timely pickups and drop-offs.</p>
+                    </div>
+                    <div class="p-4 flex flex-col items-center text-center">
+                        <div class="text-yellow-500 text-4xl mb-4"><i class="fas fa-car"></i></div>
+                        <h3 class="text-xl font-semibold mb-2 text-gray-900">Comfortable Rides</h3>
+                        <p class="text-gray-600">Travel in comfort with our well-maintained and clean fleet.</p>
+                    </div>
+                    <div class="p-4 flex flex-col items-center text-center">
+                        <div class="text-yellow-500 text-4xl mb-4"><i class="fas fa-handshake"></i></div>
+                        <h3 class="text-xl font-semibold mb-2 text-gray-900">Experienced Drivers</h3>
+                        <p class="text-gray-600">Our professional drivers are experienced and courteous.</p>
+                    </div>
+                    <div class="p-4 flex flex-col items-center text-center">
+                        <div class="text-yellow-500 text-4xl mb-4"><i class="fas fa-headset"></i></div>
+                        <h3 class="text-xl font-semibold mb-2 text-gray-900">24/7 Support</h3>
+                        <p class="text-gray-600">We are available round the clock to assist you.</p>
+                    </div>
+                    <div class="p-4 flex flex-col items-center text-center">
+                        <div class="text-yellow-500 text-4xl mb-4"><i class="fas fa-rupee-sign"></i></div>
+                        <h3 class="text-xl font-semibold mb-2 text-gray-900">Transparent Pricing</h3>
+                        <p class="text-gray-600">No hidden costs. Enjoy clear and competitive pricing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 md:py-24 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-5xl font-bold text-center text-blue-700 mb-12 rounded-md p-2">Our Comprehensive Services</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300 ease-in-out">
+                    <div class="text-blue-500 text-5xl mb-4"><i class="fas fa-road"></i></div>
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-900">Round Trip Cabs</h3>
+                    <p class="text-gray-600">Book cabs for round trips to any destination. Enjoy flexible itineraries and comfortable journeys.</p>
+                </div>
+                <!-- Service Card 2 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300 ease-in-out">
+                    <div class="text-blue-500 text-5xl mb-4"><i class="fas fa-arrow-right"></i></div>
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-900">One-Way Drops</h3>
+                    <p class="text-gray-600">Convenient one-way taxi services for intercity travel without the hassle of return fares.</p>
+                </div>
+                <!-- Service Card 3 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300 ease-in-out">
+                    <div class="text-blue-500 text-5xl mb-4"><i class="fas fa-city"></i></div>
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-900">Local Rental</h3>
+                    <p class="text-gray-600">Hourly local rentals for city tours, shopping, or multiple stops within Gurugram.</p>
+                </div>
+                <!-- Service Card 4 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300 ease-in-out">
+                    <div class="text-blue-500 text-5xl mb-4"><i class="fas fa-plane-departure"></i></div>
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-900">Airport Transfers</h3>
+                    <p class="text-gray-600">Reliable and timely transfers to and from Indira Gandhi International Airport (DEL).</p>
+                </div>
+                <!-- Service Card 5 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300 ease-in-out">
+                    <div class="text-blue-500 text-5xl mb-4"><i class="fas fa-briefcase"></i></div>
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-900">Corporate Solutions</h3>
+                    <p class="text-gray-600">Tailored corporate cab services for business travel, employee commutes, and events.</p>
+                </div>
+                <!-- Service Card 6 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300 ease-in-out">
+                    <div class="text-blue-500 text-5xl mb-4"><i class="fas fa-mountain"></i></div>
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-900">Outstation Trips</h3>
+                    <p class="text-gray-600">Plan your trips to nearby cities or popular tourist destinations with our comfortable outstation cabs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Fleet Section -->
+    <section id="fleet" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-5xl font-bold text-center text-blue-700 mb-12 rounded-md p-2">Our Diverse Fleet</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Car Card 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300 ease-in-out">
+                    <img src="https://placehold.co/400x250/e0e0e0/333333?text=Hatchback+Car" alt="Hatchback Car" class="w-full h-48 object-cover rounded-md mb-4">
+                    <h3 class="text-2xl font-semibold mb-2 text-gray-900">Hatchback</h3>
+                    <p class="text-gray-600 mb-4">Ideal for city commutes and small families. Economical and comfortable.</p>
+                    <ul class="text-gray-700 text-sm mb-4">
+                        <li class="flex items-center justify-center mb-1"><i class="fas fa-users mr-2 text-blue-500"></i> Seating: 4 Passengers</li>
+                        <li class="flex items-center justify-center mb-1"><i class="fas fa-suitcase mr-2 text-blue-500"></i> Luggage: 2 Bags</li>
+                        <li class="flex items-center justify-center"><i class="fas fa-fan mr-2 text-blue-500"></i> AC Available</li>
+                    </ul>
+                    <a href="#contact" class="btn-primary inline-block">Book Now</a>
+                </div>
+                <!-- Car Card 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300 ease-in-out">
+                    <img src="https://placehold.co/400x250/e0e0e0/333333?text=Sedan+Car" alt="Sedan Car" class="w-full h-48 object-cover rounded-md mb-4">
+                    <h3 class="text-2xl font-semibold mb-2 text-gray-900">Sedan</h3>
+                    <p class="text-gray-600 mb-4">Perfect for comfortable long-distance travel and business trips. Spacious interiors.</p>
+                    <ul class="text-gray-700 text-sm mb-4">
+                        <li class="flex items-center justify-center mb-1"><i class="fas fa-users mr-2 text-blue-500"></i> Seating: 4 Passengers</li>
+                        <li class="flex items-center justify-center mb-1"><i class="fas fa-suitcase mr-2 text-blue-500"></i> Luggage: 3 Bags</li>
+                        <li class="flex items-center justify-center"><i class="fas fa-fan mr-2 text-blue-500"></i> AC Available</li>
+                    </ul>
+                    <a href="#contact" class="btn-primary inline-block">Book Now</a>
+                </div>
+                <!-- Car Card 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300 ease-in-out">
+                    <img src="https://placehold.co/400x250/e0e0e0/333333?text=SUV+Car" alt="SUV Car" class="w-full h-48 object-cover rounded-md mb-4">
+                    <h3 class="text-2xl font-semibold mb-2 text-gray-900">SUV</h3>
+                    <p class="text-gray-600 mb-4">Spacious and robust, ideal for family trips and rough terrains. Ample luggage space.</p>
+                    <ul class="text-gray-700 text-sm mb-4">
+                        <li class="flex items-center justify-center mb-1"><i class="fas fa-users mr-2 text-blue-500"></i> Seating: 6-7 Passengers</li>
+                        <li class="flex items-center justify-center mb-1"><i class="fas fa-suitcase mr-2 text-blue-500"></i> Luggage: 4 Bags</li>
+                        <li class="flex items-center justify-center"><i class="fas fa-fan mr-2 text-blue-500"></i> AC Available</li>
+                    </ul>
+                    <a href="#contact" class="btn-primary inline-block">Book Now</a>
+                </div>
+                <!-- Car Card 4 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300 ease-in-out">
+                    <img src="https://placehold.co/400x250/e0e0e0/333333?text=Luxury+Car" alt="Luxury Car" class="w-full h-48 object-cover rounded-md mb-4">
+                    <h3 class="text-2xl font-semibold mb-2 text-gray-900">Luxury Cars</h3>
+                    <p class="text-gray-600 mb-4">Travel in style and sophistication. Perfect for special occasions and executive travel.</p>
+                    <ul class="text-gray-700 text-sm mb-4">
+                        <li class="flex items-center justify-center mb-1"><i class="fas fa-users mr-2 text-blue-500"></i> Seating: 4 Passengers</li>
+                        <li class="flex items-center justify-center mb-1"><i class="fas fa-suitcase mr-2 text-blue-500"></i> Luggage: 3 Bags</li>
+                        <li class="flex items-center justify-center"><i class="fas fa-fan mr-2 text-blue-500"></i> AC Available</li>
+                    </ul>
+                    <a href="#contact" class="btn-primary inline-block">Book Now</a>
+                </div>
+                <!-- Car Card 5 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300 ease-in-out">
+                    <img src="https://placehold.co/400x250/e0e0e0/333333?text=Tempo+Traveller" alt="Tempo Traveller" class="w-full h-48 object-cover rounded-md mb-4">
+                    <h3 class="text-2xl font-semibold mb-2 text-gray-900">Tempo Traveller</h3>
+                    <p class="text-gray-600 mb-4">Ideal for group travel, family outings, and corporate tours. Spacious and comfortable.</p>
+                    <ul class="text-gray-700 text-sm mb-4">
+                        <li class="flex items-center justify-center mb-1"><i class="fas fa-users mr-2 text-blue-500"></i> Seating: 9-12 Passengers</li>
+                        <li class="flex items-center justify-center mb-1"><i class="fas fa-suitcase mr-2 text-blue-500"></i> Luggage: Ample</li>
+                        <li class="flex items-center justify-center"><i class="fas fa-fan mr-2 text-blue-500"></i> AC Available</li>
+                    </ul>
+                    <a href="#contact" class="btn-primary inline-block">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 md:py-24 bg-gray-100">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold text-blue-700 mb-12 rounded-md p-2">What Our Clients Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Testimonial Card 1 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300 ease-in-out">
+                    <p class="text-gray-700 italic mb-6">"Raushan Taxi Service provided an excellent experience. The driver was professional and the car was very clean. Highly recommended for airport transfers!"</p>
+                    <p class="font-semibold text-gray-900">- Anjali Sharma</p>
+                    <div class="text-yellow-400 mt-2">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <!-- Testimonial Card 2 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300 ease-in-out">
+                    <p class="text-gray-700 italic mb-6">"Punctual and reliable service for my daily commute. Raushan Taxi Service has made my travel stress-free. Thank you!"</p>
+                    <p class="font-semibold text-gray-900">- Rahul Singh</p>
+                    <div class="text-yellow-400 mt-2">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+                <!-- Testimonial Card 3 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300 ease-in-out">
+                    <p class="text-gray-700 italic mb-6">"Had a wonderful local sightseeing tour. The driver was very knowledgeable and flexible with our itinerary. Great service!"</p>
+                    <p class="font-semibold text-gray-900">- Priya Verma</p>
+                    <div class="text-yellow-400 mt-2">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 md:py-24 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-5xl font-bold text-center text-blue-700 mb-12 rounded-md p-2">Contact Us</h2>
+            <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-900">Get in Touch</h3>
+                    <p class="text-gray-700 mb-4 flex items-center"><i class="fas fa-phone-alt text-blue-500 mr-3"></i> <a href="tel:+918920100859" class="hover:underline">+91 8920100859</a>, <a href="tel:+919065897556" class="hover:underline ml-2">+91 9065897556</a></p>
+                    <p class="text-gray-700 mb-4 flex items-center"><i class="fas fa-envelope text-blue-500 mr-3"></i> <a href="mailto:mrraushan127@gmail.com" class="hover:underline">mrraushan127@gmail.com</a></p>
+                    <p class="text-gray-700 mb-4 flex items-center"><i class="fas fa-map-marker-alt text-blue-500 mr-3"></i> Ashok Vihar, Wazirpur, PIN 110052</p>
+
+                    <h3 class="text-2xl font-semibold mt-8 mb-4 text-gray-900">Follow Us</h3>
+                    <div class="flex space-x-6">
+                        <a href="https://www.instagram.com/sataycvictor?igsh=emx0YTkxaWoxamNo" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-pink-600 transition duration-300 text-4xl">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/share/1Byf1xxHJy/" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-blue-700 transition duration-300 text-4xl">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mt-8 mb-4 text-gray-900">Operating Hours</h3>
+                    <ul class="text-gray-700">
+                        <li class="mb-2">Monday - Friday: <span class="font-semibold">9 AM - 10 PM</span></li>
+                        <li class="mb-2">Saturday: <span class="font-semibold">9 AM - 6 PM</span></li>
+                        <li>Sunday: <span class="font-semibold">9 AM - 12 PM</span></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Form -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-900">Send Us a Message</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="contact-name" class="block text-gray-700 text-sm font-bold mb-2">Name</label>
+                            <input type="text" id="contact-name" name="contact-name" class="form-input" placeholder="Your Name">
+                        </div>
+                        <div>
+                            <label for="contact-email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                            <input type="email" id="contact-email" name="contact-email" class="form-input" placeholder="your@example.com">
+                        </div>
+                        <div>
+                            <label for="contact-phone" class="block text-gray-700 text-sm font-bold mb-2">Phone Number</label>
+                            <input type="tel" id="contact-phone" name="contact-phone" class="form-input" placeholder="+91 XXXXXXXXXX">
+                        </div>
+                        <div>
+                            <label for="contact-message" class="block text-gray-700 text-sm font-bold mb-2">Message</label>
+                            <textarea id="contact-message" name="contact-message" rows="5" class="form-input" placeholder="Your Message"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary w-full">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; <span id="current-year"></span> Raushan Taxi Service. All rights reserved.</p>
+            <div class="flex justify-center space-x-4 mt-4">
+                <a href="#home" class="text-gray-400 hover:text-white transition duration-300">Home</a>
+                <a href="#services" class="text-gray-400 hover:text-white transition duration-300">Services</a>
+                <a href="#fleet" class="text-gray-400 hover:text-white transition duration-300">Our Fleet</a>
+                <a href="#testimonials" class="text-gray-400 hover:text-white transition duration-300">Testimonials</a>
+                <a href="#contact" class="text-gray-400 hover:text-white transition duration-300">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" title="Go to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMobileMenu = document.getElementById('close-mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+        });
+
+        closeMobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+
+        // Scroll to top button functionality
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+        window.onscroll = function() {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollToTopBtn.style.display = "block";
+            } else {
+                scrollToTopBtn.style.display = "none";
+            }
+        }
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Set min date for pickup date input to today
+        const pickupDateInput = document.getElementById('pickup-date');
+        if (pickupDateInput) {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+            const dd = String(today.getDate()).padStart(2, '0');
+            pickupDateInput.min = `${yyyy}-${mm}-${dd}`;
+        }
+    </script>
+</body>
+</html>
